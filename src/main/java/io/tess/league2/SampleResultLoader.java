@@ -1,19 +1,15 @@
 package io.tess.league2;
 
-import io.tess.league2.domain.Result;
-import io.tess.league2.domain.ResultRepository;
+import io.tess.league2.domain.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
-
-import java.util.stream.Stream;
 
 public class SampleResultLoader implements CommandLineRunner {
 
-    private ResultRepository repository;
+    private MatchRepository repository;
 
     @Autowired
-    public SampleResultLoader(ResultRepository repository) {
+    public SampleResultLoader(MatchRepository repository) {
         this.repository = repository;
     }
 
@@ -27,6 +23,6 @@ public class SampleResultLoader implements CommandLineRunner {
 //        Stream.of("")
 //                .forEach(n -> repository.save(null));
 //        repository.findAll().forEach(System.out::println);
-        //repository.save(new Result("A","B",1,0));
+        //repository.save(new Match("A","B",1,0));
     }
 }
