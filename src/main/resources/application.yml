@@ -3,8 +3,13 @@
 server.port: 12080
 
 spring:
-  jpa.hibernate.ddl-auto: validate
+  jpa:
+    hibernate.ddl-auto: create
+    show-sql: true
+    properties.hibernate.format_sql: true
   datasource:
     url: jdbc:mysql://localhost:3306/football
     username: springuser
     password: password
+
+local.loadfile: classpath:epl.json

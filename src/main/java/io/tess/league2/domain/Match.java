@@ -1,10 +1,12 @@
 package io.tess.league2.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,12 +19,14 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table( name = "EPL" )
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Match implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public enum Result {
-        HOME_WIN('H'), AWAY_WIN('A'), DRAW ('D');
+        HOME_WIN('H'), AWAY_WIN('A'), DRAW ('D'), UNK('X');
 
+        @JsonValue
         private char value;
 
         Result(char value) { this.value = value; }
@@ -46,191 +50,98 @@ public class Match implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "Div")
     private String division;
-    @Column(name = "Date")
-    private Date date;
-    @Column(name = "HomeTeam")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yy") private Date date;
     private String homeTeam;
-    @Column(name = "AwayTeam")
     private String awayTeam;
-    @Column(name = "FTHG")
     private Integer fullTimeHomeGoals;
-    @Column(name = "FTAG")
     private Integer fullTimeAwayGoals;
-    @Column(name = "FTR")
     private Result fullTimeResult;
-    @Column(name = "HTHG")
     private Integer halfTimeHomeGoals;
-    @Column(name = "HTAG")
     private Integer halfTimeAwayGoals;
-    @Column(name = "HTR")
     private Result halfTimeResult;
-    @Column(name = "Referee")
     private String referee;
-    @Column(name = "HS")
     private Integer homeTeamShots;
-    @Column(name = "AS")
     private Integer awayTeamShots;
-    @Column(name = "HST")
     private Integer homeTeamShotsOnTarget;
-    @Column(name = "AST")
     private Integer awayTeamShotsOnTarget;
-    @Column(name = "HF")
     private Integer homeTeamFouls;
-    @Column(name = "AF")
     private Integer awayTeamFouls;
-    @Column(name = "HC")
     private Integer homeTeamCorners;
-    @Column(name = "AC")
     private Integer awayTeamCorners;
-    @Column(name = "HY")
     private Integer homeTeamYellowCards;
-    @Column(name = "AY")
     private Integer awayTeamYellowCards;
-    @Column(name = "HR")
     private Integer homeTeamRedCards;
-    @Column(name = "AR")
     private Integer awayTeamRedCards;
-    @Column(name = "B365H")
     private String bet365HomeWinOdds;
-    @Column(name = "B365D")
     private String bet365DrawOdds;
-    @Column(name = "B365A")
     private String bet365AwayWinOdds;
-    @Column(name = "BWH")
     private String blueSquareHomeWinOdds;
-    @Column(name = "BWD")
     private String blueSquareDrawOdds;
-    @Column(name = "BWA")
     private String blueSquareAwayWinOdds;
-    @Column(name = "IWH")
     private String interwettenHomeWinOdds;
-    @Column(name = "IWD")
     private String interwettenDrawOdds;
-    @Column(name = "IWA")
     private String interwettenAwayWinOdds;
-    @Column(name = "LBH")
     private String ladbrokesHomeWinOdds;
-    @Column(name = "LBD")
     private String ladbrokesDrawOdds;
-    @Column(name = "LBA")
     private String ladbrokesAwayWinOdds;
-    @Column(name = "PSH")
     private String pinnacleHomeWinOdds;
-    @Column(name = "PSD")
     private String pinnacleDrawOdds;
-    @Column(name = "PSA")
     private String pinnacleAwayWinOdds;
-    @Column(name = "WHH")
     private String williamHillHomeWinOdds;
-    @Column(name = "WHD")
     private String williamHillDrawOdds;
-    @Column(name = "WHA")
     private String williamHillAwayWinOdds;
-    @Column(name = "VCH")
     private String vcBetHomeWinOdds;
-    @Column(name = "VCD")
     private String vcBetDrawOdds;
-    @Column(name = "VCA")
     private String vcBetAwayWinOdds;
-    @Column(name = "Bb1X2")
     private Integer bb1X2;
-    @Column(name = "BbMxH")
     private String bbMxH;
-    @Column(name = "BbAvH")
     private String bbAvH;
-    @Column(name = "BbMxD")
     private String bbMxD;
-    @Column(name = "BbAvD")
     private String bbAvD;
-    @Column(name = "BbMxA")
     private String bbMxA;
-    @Column(name = "BbAvA")
     private String bbAvA;
-    @Column(name = "BbOU")
     private Integer bbOU;
-    @Column(name = "BbMx>2.5")
     private String bbMxGT25;
-    @Column(name = "BbAv>2.5")
     private String bbAvGT25;
-    @Column(name = "BbMx<2.5")
     private String bbMxLT25;
-    @Column(name = "BbAv<2.5")
     private String bbAvLT25;
-    @Column(name = "BbAH")
     private Integer bbAH;
-    @Column(name = "BbAHh")
     private String bbAHh;
-    @Column(name = "BbMxAHH")
     private String bbMxAHH;
-    @Column(name = "BbAvAHH")
     private String bbAvAHH;
-    @Column(name = "BbMxAHA")
     private String bbMxAHA;
-    @Column(name = "BbAvAHA")
     private String bbAvAHA;
-    @Column(name = "PSCH")
     private String pinnacleClosingHomeWinOdds;
-    @Column(name = "PSCD")
     private String pinnacleClosingDrawOdds;
-    @Column(name = "PSCA")
     private String pinnacleClosingAwayWinOdds;;
-    @Column(name = "Attendance")
     private String attendance;
-    @Column(name = "HHW")
     private Integer homeTeamHitWoodwork;
-    @Column(name = "AHW")
     private Integer awayTeamHitWoodwork;
-    @Column(name = "HO")
     private Integer homeTeamOffsides;
-    @Column(name = "AO")
     private Integer awayTeamOffsides;
-    @Column(name = "HBP")
     private Integer homeTeamBookingPoints;
-    @Column(name = "ABP")
     private Integer awayTeamBookingPoints;
-    @Column(name = "GBH")
     private String gameBookersHomeWinOdds;
-    @Column(name = "GBD")
     private String gameBookersDrawOdds;
-    @Column(name = "GBA")
     private String gameBookersAwayWinOdds;
-    @Column(name = "SBH")
     private String sportingBetHomeWinOdds;
-    @Column(name = "SBO")
     private String sportingBetOdds;
-    @Column(name = "SBA")
     private String sportingBetAwayWinOdds;
-    @Column(name = "SBD")
     private String sportingBetDrawOdds;
-    @Column(name = "GB>2.5")
     private String gbGT25;
-    @Column(name = "GB<2.5")
     private String gbLT25;
-    @Column(name = "B365>2.5")
     private String b365GT25;
-    @Column(name = "B365<2.5")
     private String b365LT25;
-    @Column(name = "GBAHH")
     private String gameBookersAsianHandicapHomeWinOdds;
-    @Column(name = "GBAH")
     private String gameBookersAsianHandicapAwayWinOdds;
-    @Column(name = "LBAHH")
     private String ladbrokesAsianHandicapHomeWinOdds;
-    @Column(name = "LBAHA")
     private String ladbrokesAsianHandicapAwayWinOdds;
-    @Column(name = "LBAH")
     private String ladbrokesAsianHandicapSize;
-    @Column(name = "B365AHH")
     private String betting365AsianHandicapHomeWinOdds;
-    @Column(name = "B365AHA")
     private String betting365AsianHandicapAwayWinOdds;
-    @Column(name = "B365AH")
     private String betting365AsianHandicapSize;
-    @Column(name = "Season")
     private String season;
-    @Column(name = "MatchDate")
     private Date matchDate;
 }
 
